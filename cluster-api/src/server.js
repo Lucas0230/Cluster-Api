@@ -1,13 +1,21 @@
-import http from 'http';
+import express from 'express';
 
+// Id do processo 
 const processId = process.pid;
 
-const server = http.createServer((req, res) => {
-    for (let index = 0; index < 1e7; index++);
-    res.end(`handled by pid ${processId}`)
+const server = express();
+
+// Rota de teste
+server.get('/users', (req, res) => {
+    res.status(200).json({
+        users: [{
+            name: 'Lucas',
+            email: 'lucas@gmail.com'
+        }]
+    })
 })
 
-server.listen(4000).once('listening', () => {
+server.listen(4000, () => {
     console.log(`Server started in process ${processId}`);
 })
 
